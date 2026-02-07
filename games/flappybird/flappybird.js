@@ -1,30 +1,32 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-// --------------------
-// GAME VARIABLES
-// --------------------
+// ---- GAME STATE ----
 let birdY = 200;
-let velocity = 0;
-const gravity = 0.6;
+let birdVelocity = 0;
+const gravity = 0.5;
 
 let pipeX = 320;
+const pipeWidth = 40;
 const gap = 120;
 
 let score = 0;
-let gameStarted = false;
-let gameOver = false;
+let started = false;
 
-// --------------------
-// GAME LOOP
-// --------------------
+// ---- INPUT ----
+document.addEventListener("click", () => {
+    if (!started) started = true;
+    birdVelocity = -8;
+});
+
+// ---- GAME LOOP ----
 function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Start physics ONLY after click
-    if (gameStarted && !gameOver) {
-        velocity += gravity;
-        birdY += velocity;
+    if (started) {
+        birdVelocity += gravity;
+        birdY += birdVelocity;
         pipeX -= 2;
     }
 
@@ -34,41 +36,37 @@ function loop() {
 
     // Pipes
     ctx.fillStyle = "green";
-    ctx.fillRect(pipeX, 0, 40, 200);
-    ctx.fillRect(pipeX, 200 + gap, 40, canvas.height);
+    ctx.fillRect(pipeX, 0, pipeWidth, 200);
+    ctx.fillRect(pipeX, 200 + gap, pipeWidth, canvas.height);
 
-    // Reset pipe + score
-    if (pipeX < -40) {
+    // Reset pipe
+    if (pipeX < -pipeWidth) {
         pipeX = canvas.width;
         score++;
     }
 
-    // Collision detection
-    if (
-        gameStarted &&
-        (
-            birdY < 0 ||
-            birdY > canvas.height - 20 ||
-            (
-                50 + 20 > pipeX &&
-                50 < pipeX + 40 &&
-                (birdY < 200 || birdY + 20 > 200 + gap)
-            )
-        )
-    ) {
-        gameOver = true;
-        setTimeout(() => {
+    // Collision (ONLY after game starts)
+    if (started) {
+        const hitPipe =
+            50 + 20 > pipeX &&
+            50 < pipeX + pipeWidth &&
+            (birdY < 200 || birdY + 20 > 200 + gap);
+
+        const hitGround = birdY + 20 > canvas.height;
+        const hitTop = birdY < 0;
+
+        if (hitPipe || hitGround || hitTop) {
             alert("Game Over! Score: " + score);
             location.reload();
-        }, 100);
-        return;
+            return;
+        }
     }
 
     // Start text
-    if (!gameStarted) {
+    if (!started) {
         ctx.fillStyle = "black";
         ctx.font = "20px Arial";
-        ctx.fillText("Click to Start", 90, 200);
+        ctx.fillText("Click to Start", 90, 220);
     }
 
     // Score
@@ -79,15 +77,5 @@ function loop() {
     requestAnimationFrame(loop);
 }
 
-// --------------------
-// INPUT
-// --------------------
-window.addEventListener("click", () => {
-    gameStarted = true;
-    velocity = -8;
-});
-
-// --------------------
-// START GAME
-// --------------------
+// ---- START ----
 loop();
