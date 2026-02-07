@@ -1,0 +1,35 @@
+body {
+margin: 0;
+font-family: system-ui, monospace;
+background: #0f172a;
+color: #e5e7eb;
+text-align: center;
+}
+header {
+padding: 40px;
+}
+.games {
+display: flex;
+justify-content: center;
+gap: 30px;
+}
+.card {
+background: #020617;
+padding: 20px;
+width: 260px;
+border-radius: 12px;
+transition: transform 0.2s ease;
+}
+.card:hover {
+transform: translateY(-6px);
+}
+.card a {
+display: inline-block;
+margin-top: 12px;
+text-decoration: none;
+color: #38bdf8;
+}
+footer {
+margin-top: 50px;
+font-size: 14px;
+}

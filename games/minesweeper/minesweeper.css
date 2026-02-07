@@ -1,0 +1,25 @@
+#grid {
+display: grid;
+grid-template-columns: repeat(8, 40px);
+gap: 5px;
+justify-content: center;
+margin-top: 20px;
+}
+
+
+.cell {
+width: 40px;
+height: 40px;
+background: #1e293b;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+font-weight: bold;
+}
+.revealed {
+background: #334155;
+}
+
+
+

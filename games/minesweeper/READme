@@ -1,0 +1,27 @@
+# Mini Arcade 🎮
+
+
+A browser-based mini arcade featuring classic games like Minesweeper and Flappy Bird.
+
+
+## Tech Stack
+- HTML
+- CSS
+- JavaScript (Vanilla)
+
+
+## What I Learned
+- DOM manipulation
+- Canvas rendering
+- Game loops & physics
+- Clean project structuring
+
+
+## How to Run
+Open index.html in your browser.
+
+
+## Future Improvements
+- High score system
+- More games
+- Mobile controls
