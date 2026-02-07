@@ -25,3 +25,5 @@ Open index.html in your browser.
 - High score system
 - More games
 - Mobile controls
+
+site is live at https://vaibhav-9009.github.io/Mini_Arcade/
